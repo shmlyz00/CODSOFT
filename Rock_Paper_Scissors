@@ -1,0 +1,68 @@
+import tkinter as tk
+from tkinter import ttk
+import random
+
+def winner():
+    player2_choice = player2_var.get()
+    if player1_var.get() == "scissors":
+        if player2_choice == "paper":
+            return "player1"
+        elif player2_choice == "rock":
+            return "player2"
+        else:
+            return "Tie"
+    elif player1_var.get() == "rock":
+        if player2_choice == "paper":
+            return "player2"
+        elif player2_choice == "scissors":
+            return "player1"
+        else:
+            return "Tie"
+    elif player1_var.get() == "paper":
+        if player2_choice == "rock":
+            return "player1"
+        elif player2_choice == "scissors":
+            return "player2"
+        else:
+            return "Tie"
+
+def set_player1_choice(choice):
+    player1_var.set(choice)
+    player2_var.set(random.choice(["rock", "paper", "scissors"]))
+    label2.config(text=player2_var.get())
+    rlabel.config(text=winner())
+
+window = tk.Tk()
+window.title("Rock Paper Scissors")
+window.config(bg="#696969")
+
+label0 = tk.Label(window, text="Rock Paper Scissors", font=("Times New Roman", 20, "bold"), bg="#696969", fg="#ADFF2F")
+label0.pack()
+game_frame = tk.Frame(window,bg="#696969")
+game_frame.pack(side="top", pady=40)
+
+#Player 1
+label = tk.Label(game_frame, text="Player 1", bg="#FFD700")
+label.grid(column=0, row=0, padx=30, pady=20)
+player1_var = tk.StringVar()
+rock = tk.Button(game_frame, text="Rock", command=lambda: set_player1_choice("rock"), bg="#8FBC8F")
+rock.grid(column=0, row=1, pady=5)
+scissors = tk.Button(game_frame, text="Scissors", command=lambda: set_player1_choice("scissors"),bg="#8FBC8F")
+scissors.grid(column=0, row=2 , pady=5)
+paper = tk.Button(game_frame, text="Paper", command=lambda: set_player1_choice("paper"),bg="#8FBC8F")
+paper.grid(column=0, row=3, pady=5)
+
+#Player 2
+player2_var = tk.StringVar()
+label1 = tk.Label(game_frame, text="Player 2(machine)",bg="#FFD700")
+label1.grid(column=1, row=0, padx=30)
+label2 = tk.Label(game_frame, text="player2's choice : ",bg="#8FBC8F")
+label2.grid(column=1, row=1)
+
+#Winner
+winner_label = tk.Label(game_frame, text="Winner",bg="#FFD700")
+winner_label.grid(column=2, row=0, padx=30)
+rlabel = tk.Label(game_frame, text="result", bg="#8FBC8F")
+rlabel.grid(column=2, row=1)
+
+window.mainloop()
